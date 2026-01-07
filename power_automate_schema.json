@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "musteriUnvani": {
+            "type": "string"
+        },
+        "musteriAdresi": {
+            "type": "string"
+        },
+        "yetkiliAdSoyad": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "telefon": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "selectedTests": {
+            "type": "string"
+        },
+        "formData": {
+            "type": "string"
+        }
+    }
+}
