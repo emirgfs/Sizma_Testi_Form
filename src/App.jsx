@@ -4,6 +4,7 @@ import StepVerification from './components/StepVerification'
 import StepReportRetention from './components/StepReportRetention'
 import StepTestSelection from './components/StepTestSelection'
 import StepServiceDetails from './components/StepServiceDetails'
+import StepSummary from './components/StepSummary'
 import { TEST_SERVICES } from './constants'
 
 
@@ -35,7 +36,7 @@ function App() {
     // Seçilen testlerin listesi (Sırasıyla adım olacaklar)
     const selectedTestIds = formData.selectedTests || []
 
-    const totalSteps = baseSteps + selectedTestIds.length
+    const totalSteps = baseSteps + selectedTestIds.length + 1
 
     const updateFormData = (data) => {
         setFormData(prev => ({ ...prev, ...data }))
@@ -161,6 +162,18 @@ function App() {
                     />
                 )
             }
+        }
+
+        // Son Adım: Özet ve Onay
+        if (currentStep === totalSteps) {
+            return (
+                <StepSummary
+                    formData={formData}
+                    prevStep={prevStep}
+                    handleSubmit={handleSubmit}
+                    isSubmitting={isSubmitting}
+                />
+            )
         }
 
         return <div>Bilinmeyen Adım</div>

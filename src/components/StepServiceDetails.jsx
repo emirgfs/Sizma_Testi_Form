@@ -22,7 +22,7 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
         return (formData[serviceId] && formData[serviceId][field]) || ''
     }
 
-    const methodologyOptions = [
+    let methodologyOptions = [
         {
             label: 'Black/Siyah Box',
             description: 'Sadece teste tabi varlıklara erişim için gerekli ip:port gibi en temel bilgiler paylaşılır.'
@@ -36,6 +36,143 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
             description: 'Teste tabi varlıklara tam yetkili kullanıcı erişim bilgileri paylaşılır.'
         }
     ]
+
+    if (serviceId === 'localNetworkPenetrationTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Yalnızca iç ağa erişim sağlanacaktır. Sistem, mimari ve güvenlik kontrolleri hakkında ön bilgi paylaşılmayacaktır'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'İç ağdaki güvenlik katmanları hakkında sınırlı bilgilendirme sağlanacaktır. (Ör: MAC / ACL kontrolleri hakkında bilgi paylaşılacaktır, NAC kullanımı mevcutsa ürün ve uygulanan güvenlik politikaları hakkında bilgilendirme yapılacaktır)'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test için kullanılacak VPN / PC erişimleri whitelist (IP / MAC / ACL) ile yetkilendirilecektir. (Ör: NAC altyapısı üzerinden gerekli erişim izinleri sağlanacaktır)'
+            }
+        ]
+    } else if (serviceId === 'wirelessNetworkPenetrationTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, yalnızca teste tabi tutulacak kablosuz ağlara (SSID) erişim sağlanarak gerçekleştirilecektir. Kablosuz ağlara ilişkin temel SSID bilgileri paylaşılacak olup, altyapı ve güvenlik yapılandırmaları hakkında ek bir bilgilendirme yapılmayacaktır.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, Hotspot / Captive Portal kullanılan çözümler hakkında bilgilendirme sağlanarak ve kablosuz ağlarda uygulanan güvenlik önlemleri ve sıkılaştırma yapılandırmaları hakkında sınırlı teknik bilgi paylaşımı ile gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test kapsamında, teste tabi tutulacak Hotspot / Captive Portal ve SSID’ler için uygulanmış güvenlik sıkılaştırmalarından gerekli görülenler için kontrollü istisnalar tanımlanacak ve test süresince ilgili erişim izinleri sağlanacaktır.'
+            }
+        ]
+    } else if (serviceId === 'mobileAppPenetrationTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, mobil uygulamaya herhangi bir teknik dokümantasyon veya ön bilgi paylaşılmadan, son kullanıcı bakış açısıyla gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, mobil uygulamanın mimarisi, kullanılan servisler ve güvenlik mekanizmaları hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test, mobil uygulamaya ait kaynak kod, konfigürasyonlar ve güvenlik kontrolleri hakkında kapsamlı bilgi paylaşımı yapılarak ve gerekli erişimler sağlanarak gerçekleştirilecektir.'
+            }
+        ]
+    } else if (serviceId === 'socialEngineeringTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, yalnızca teste tabi tutulacak personele ait e-posta adresi, telefon numarası ve ad–soyad/unvan gibi temel bilgiler kullanılarak gerçekleştirilecektir. Güvenlik altyapısı ve kontrolleri hakkında herhangi bir ön bilgi paylaşılmayacaktır.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, kurumda kullanılan e-posta güvenlik çözümleri ve ilgili güvenlik yapılandırmaları hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test kapsamında, kullanılan güvenlik çözümleri üzerinde test için kullanılacak saldırgan e-posta adresleri için whitelist tanımlamaları yapılacak ve spam, phishing veya benzeri filtrelerden kontrollü istisnalar sağlanacaktır.'
+            }
+        ]
+    } else if (serviceId === 'dosDdosTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, hedef sistemler hakkında herhangi bir teknik bilgi veya ön yapılandırma paylaşılmadan, harici saldırgan bakış açısıyla gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, hedef sistemlerin mimarisi ve kullanılan koruyucu güvenlik çözümleri (Firewall, DDoS Mitigation, WAF vb.) hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test kapsamında, kullanılan DoS/DDoS koruma mekanizmaları üzerinde test için gerekli whitelist, eşik değer (threshold) veya kontrollü istisnalar tanımlanarak ve ilgili ekiplerle koordinasyon sağlanarak gerçekleştirilecektir.'
+            }
+        ]
+    } else if (serviceId === 'webAppLoadTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, web uygulamasına ilişkin herhangi bir teknik bilgi paylaşılmadan, son kullanıcı bakış açısıyla gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, web uygulamasının genel mimarisi ve altyapısı hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test, web uygulamasına ait altyapı ve uygulama bileşenleri için gerekli kontrollü yapılandırmalar ve istisnalar tanımlanarak gerçekleştirilecektir.'
+            }
+        ]
+    } else if (serviceId === 'icsScadaTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, EKS/SCADA ortamına ilişkin herhangi bir teknik dokümantasyon veya ön bilgi paylaşılmadan, harici saldırgan bakış açısıyla gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, EKS/SCADA mimarisi ve kullanılan ağ segmentasyonu, güvenlik katmanları ve erişim kontrolleri hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test, EKS/SCADA ortamına ait ağ diyagramları, sistem bileşenleri ve güvenlik kontrolleri hakkında kapsamlı bilgilendirme yapılarak ve test için gerekli kontrollü erişim izinleri sağlanarak gerçekleştirilecektir.'
+            }
+        ]
+    } else if (serviceId === 'sourceCodeAnalysis') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, uygulamaya ait kaynak kod veya mimari bilgi paylaşılmadan, yalnızca uygulamanın çalışma mantığı ve dış davranışı üzerinden gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, uygulamaya ait sınırlı mimari bilgi ve örnek yapılandırmalar sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test, uygulamaya ait tam kaynak kod, yapılandırma dosyaları ve güvenlik kontrolleri paylaşılarak gerçekleştirilecektir.'
+            }
+        ]
+    } else if (serviceId === 'voipPenetrationTest') {
+        methodologyOptions = [
+            {
+                label: 'Black/Siyah Box',
+                description: 'Test, VoIP altyapısına ilişkin herhangi bir teknik bilgi veya yapılandırma paylaşılmadan, harici saldırgan bakış açısıyla gerçekleştirilecektir.'
+            },
+            {
+                label: 'Gray/Gri Box',
+                description: 'Test, kullanılan VoIP altyapısı ve uygulanan temel güvenlik kontrolleri (ör. ağ segmentasyonu, kimlik doğrulama yöntemleri) hakkında sınırlı bilgilendirme sağlanarak gerçekleştirilecektir.'
+            },
+            {
+                label: 'White/Beyaz Box',
+                description: 'Test, VoIP altyapısına ait sistem bileşenleri, yapılandırmalar ve güvenlik kontrolleri hakkında kapsamlı bilgilendirme yapılarak ve test için gerekli kontrollü erişim izinleri sağlanarak gerçekleştirilecektir.'
+            }
+        ]
+    }
 
     const scheduleOptions = [
         'Mesai saatleri içerisinde yapılabilir.',
@@ -129,8 +266,10 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
                         <span className="radio-label">Uzaktan</span>
                         <p className="radio-description">
                             {serviceId === 'wirelessNetworkPenetrationTest'
-                                ? 'VPN, cihaz ve destek personeli gereklidir.'
-                                : 'Test çalışması, uzaktan (VPN vb. yöntemlerle) gerçekleştirilecektir.'}
+                                ? 'Test çalışması, uzaktan erişim modeli ile gerçekleştirilecektir. Bu kapsamda; kurum tarafından tahsis edilmiş bir bilgisayar ve VPN erişimi sağlanması veya tahsis edilmiş bilgisayar ile birlikte destek personeli desteği gerekmektedir.'
+                                : serviceId === 'localNetworkPenetrationTest'
+                                    ? 'Uzaktan (VPN erişimi) veya (kurum tarafından tahsis edilecek PC / RDP)'
+                                    : 'Test çalışması, uzaktan (VPN vb. yöntemlerle) gerçekleştirilecektir.'}
                         </p>
                     </div>
                 </div>
@@ -545,6 +684,8 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
             <h2 className="section-title">Detay: {serviceLabel}</h2>
 
             <div className="service-detail-container">
+
+
                 {/* 1. Kısım: Genel Bilgiler */}
                 <div style={{ marginBottom: '1rem' }}>
                     <div className="breakdown-header" style={{ marginBottom: '1rem' }}>
@@ -572,9 +713,28 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
                                 <span className="suffix-text">Adet</span>
                             </div>
                         </div>
+
+                        {/* Test Ortamı Soru */}
+                        <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #e2e8f0' }}>
+                            <label className="text-sm font-semibold text-gray-700 mb-3 block">Test Ortamı</label>
+                            <div className="radio-group" style={{ marginTop: 0, flexDirection: 'row', gap: '1rem' }}>
+                                {['Canlı (Production) ortam', 'Test / Pre-prod ortam'].map((env) => (
+                                    <div
+                                        key={env}
+                                        className={`radio-card ${getVal('mobileTestEnvironment') === env ? 'selected' : ''}`}
+                                        onClick={() => handleComplexChange('mobileTestEnvironment', env)}
+                                        style={{ flex: 1, minHeight: 'auto', padding: '0.75rem' }}
+                                    >
+                                        <div className="radio-indicator"></div>
+                                        <div className="radio-content">
+                                            <span className="radio-label">{env}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 {/* 2. Kısım: Platform Seçimi */}
                 <div style={{ marginBottom: '1rem' }}>
                     <div className="breakdown-header" style={{ marginBottom: '1rem' }}>
@@ -1015,6 +1175,26 @@ function StepServiceDetails({ serviceId, serviceLabel, formData, updateFormData,
                                         <span className="suffix-text">Rol</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Test Ortamı */}
+                        <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #e2e8f0' }}>
+                            <label className="text-sm font-semibold text-gray-700 mb-3 block">Test Ortamı</label>
+                            <div className="radio-group" style={{ marginTop: 0, flexDirection: 'row', gap: '1rem' }}>
+                                {['Test / Pre-prod ortam', 'Canlı (Production) ortam'].map((env) => (
+                                    <div
+                                        key={env}
+                                        className={`radio-card ${getVal('loadTestEnvironment') === env ? 'selected' : ''}`}
+                                        onClick={() => handleComplexChange('loadTestEnvironment', env)}
+                                        style={{ flex: 1, minHeight: 'auto', padding: '0.75rem' }}
+                                    >
+                                        <div className="radio-indicator"></div>
+                                        <div className="radio-content">
+                                            <span className="radio-label">{env}</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
