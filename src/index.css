@@ -55,6 +55,12 @@ body {
   border-bottom: 2px solid var(--border-color);
 }
 
+.form-logo {
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
 .form-header h1 {
   color: var(--primary-color);
   font-size: 2rem;

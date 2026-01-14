@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import StepCustomerInfo from './components/StepCustomerInfo'
 import StepVerification from './components/StepVerification'
 import StepReportRetention from './components/StepReportRetention'
@@ -7,6 +7,8 @@ import StepServiceDetails from './components/StepServiceDetails'
 import StepSummary from './components/StepSummary'
 import { TEST_SERVICES } from './constants'
 
+
+import logo from './images/Gate for Security-cropped.svg'
 
 function App() {
     const [currentStep, setCurrentStep] = useState(1)
@@ -37,6 +39,10 @@ function App() {
     const selectedTestIds = formData.selectedTests || []
 
     const totalSteps = baseSteps + selectedTestIds.length + 1
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [currentStep])
 
     const updateFormData = (data) => {
         setFormData(prev => ({ ...prev, ...data }))
@@ -197,6 +203,7 @@ function App() {
         <div className="container">
             <div className="form-card">
                 <div className="form-header">
+                    <img src={logo} alt="Gate for Security" className="form-logo" />
                     <h1>Sızma Testi Talep Formu</h1>
                     {currentStep === 1 && (
                         <p style={{ color: 'red' }}>
